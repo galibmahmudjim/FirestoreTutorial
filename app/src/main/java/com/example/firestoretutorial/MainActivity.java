@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         User.put("Department", "CSE");
         User.put("Phone", "01837485786");
         User.put("Roll", "62");
+        User.put("Hall", "Fazlul Haque Hall");
         collectionReference.document(User.get("Email")).set(User);
 
         HashMap<String, String> User2 = new HashMap<>();
@@ -48,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
         User2.put("Email", "lubnalamia@gmail.com");
         User2.put("Department", "CSE");
         User2.put("Phone", "0183666666");
-        User2.put("Roll", "25");
+        User2.put("Roll", "26");
+        User2.put("Hall", "Shamsun Nahar Hall");
         collectionReference.document(User2.get("Email")).set(User2);
 
         HashMap<String, String> User3 = new HashMap<>();
@@ -56,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
         User3.put("Email", "mansif@gmail.com");
         User3.put("Department", "CSE");
         User3.put("Phone", "0183554666");
-        User3.put("Roll", "26");
+        User3.put("Roll", "25");
+        User3.put("Hall", "Fazlul Haque Hall");
         collectionReference.document(User3.get("Email")).set(User3);
 
         Query query = collectionReference.whereEqualTo("Roll", "25");
@@ -66,6 +69,19 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Log.d(TAG, document.getId() + " => " + document.getData());
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+        query = collectionReference.whereEqualTo("Hall", "Fazlul Haque Hall");
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Log.d(TAG, document.getId() + " => " + document.get("Name"));
                     }
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
