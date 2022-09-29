@@ -10,11 +10,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 
@@ -35,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         User.put("Email", "galibmahmudjim@gmail.com");
         User.put("Department", "CSE");
         User.put("Phone", "01837485786");
-        User.put("Roll","62");
+        User.put("Roll", "62");
         collectionReference.document(User.get("Email")).set(User);
 
         HashMap<String, String> User2 = new HashMap<>();
@@ -43,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         User2.put("Email", "lubnalamia@gmail.com");
         User2.put("Department", "CSE");
         User2.put("Phone", "0183666666");
-        User2.put("Roll","25");
+        User2.put("Roll", "25");
         collectionReference.document(User2.get("Email")).set(User2);
 
         HashMap<String, String> User3 = new HashMap<>();
@@ -51,10 +56,22 @@ public class MainActivity extends AppCompatActivity {
         User3.put("Email", "mansif@gmail.com");
         User3.put("Department", "CSE");
         User3.put("Phone", "0183554666");
-        User3.put("Roll","26");
+        User3.put("Roll", "26");
         collectionReference.document(User3.get("Email")).set(User3);
 
-
+        Query query = collectionReference.whereEqualTo("Roll", "25");
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Log.d(TAG, document.getId() + " => " + document.getData());
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
         userlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
