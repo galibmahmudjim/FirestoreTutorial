@@ -7,17 +7,10 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".MainActivity">
+    tools:context=".UserlistActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Signup"
-        android:text="Sign Up"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/userlist"
-        android:text="User List"/>
-
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="322dp"
+        android:layout_height="267dp" />
 </LinearLayout>
