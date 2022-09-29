@@ -37,6 +37,18 @@ public class UserlistActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
         listView.setAdapter(arrayAdapter);
         firebaseFirestore.collection("User")
+                .whereArrayContains("Hall","Fazlul Haque Hall")
+                        .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if(task.isSuccessful())
+                                        {
+                                            Log.d(TAG, "onComplete: "+task.);
+                                        }
+                                    }
+                                })
+        firebaseFirestore.collection("User")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
