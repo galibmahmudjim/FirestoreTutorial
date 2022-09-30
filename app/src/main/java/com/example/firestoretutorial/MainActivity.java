@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button userlist = findViewById(R.id.userlist);
+        Button signup = findViewById(R.id.Signup);
         CollectionReference collectionReference = firebaseFirestore.collection("User");
         HashMap<String, String> User = new HashMap<>();
         User.put("Name", "Galib Mahmud Jim");
@@ -86,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
+            }
+        });
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,SignupActivity.class));
             }
         });
         userlist.setOnClickListener(new View.OnClickListener() {
