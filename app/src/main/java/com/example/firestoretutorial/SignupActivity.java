@@ -50,8 +50,23 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                if(phonenumber.getText().toString().isEmpty())
+                {
+                    phonenumber.setError("Phone Number can not be empty");
+                }
+
+                if(email.getText().toString().isEmpty())
+                {
+                    email.setError("Empty can not be empty");
+                }
+
+                if(roll.getText().toString().isEmpty())
+                {
+                    roll.setError("Phone Number can not be empty");
+                }
+
                 Task T1 = firebaseFirestore.collection("User")
-                        .whereEqualTo("Phone Number", phonenumber.getText().toString())
+                        .whereEqualTo("Phone", phonenumber.getText().toString())
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
@@ -98,7 +113,7 @@ public class SignupActivity extends AppCompatActivity {
                             user.put("Name",name.getText().toString());
                             user.put("Roll",roll.getText().toString());
                             user.put("Department",department.getText().toString());
-                            user.put("Phone Number",phonenumber.getText().toString());
+                            user.put("Phone",phonenumber.getText().toString());
                             user.put("Email",email.getText().toString());
                             user.put("Hall",hall.getText().toString());
                             firebaseFirestore.collection("User")
