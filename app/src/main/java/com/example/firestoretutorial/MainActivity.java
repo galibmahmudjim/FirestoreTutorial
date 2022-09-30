@@ -89,10 +89,26 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        //Delete a document
+        firebaseFirestore.collection("User")
+                .document("galibmahmudjim@gmail.com")
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "Error deleting doc");
+                    }
+                });
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,SignupActivity.class));
+                startActivity(new Intent(MainActivity.this, SignupActivity.class));
             }
         });
         userlist.setOnClickListener(new View.OnClickListener() {

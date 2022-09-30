@@ -22,24 +22,6 @@ import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-class profile {
-    String name;
-    String Department;
-    String Phone;
-    String Hall;
-    String Roll;
-    String Email;
-
-    public profile(String name, String Department, String Phone, String Hall, String Roll, String Email)
-    {
-        this.Department=Department;
-        this.Email=Email;
-        this.Roll=Roll;
-        this.Hall=Hall;
-        this.name=name;
-        this.Phone=Phone;
-    }
-}
 
 public class UserlistActivity extends AppCompatActivity {
 
@@ -52,8 +34,8 @@ public class UserlistActivity extends AppCompatActivity {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
         ListView listView = findViewById(R.id.listview);
-        List<profile> list = new ArrayList<>();
-        ArrayAdapter<profile> arrayAdapter = new ArrayAdapter<profile>(this, android.R.layout.simple_list_item_1, list);
+        List<String> list = new ArrayList<>();
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
         listView.setAdapter(arrayAdapter);
         firebaseFirestore.collection("User")
                 .whereArrayContains("Hall", "Fazlul Haque Hall")
@@ -73,7 +55,7 @@ public class UserlistActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.get("Email"));
-                                arrayAdapter.add(new profile(document.get("Name").toString(),document.get("Department").toString(),document.get("Phone").toString(),document.get("Hall").toString(),document.get("Roll").toString(),document.get("Email").toString()));
+                                arrayAdapter.add(document.get("Name").toString());
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
